@@ -1,4 +1,5 @@
-FROM node:20-alpine
+# Stage 1: Build React Application
+FROM node:20-alpine AS build
 
 WORKDIR /app
 
@@ -7,7 +8,16 @@ RUN npm install
 
 COPY . .
 
-# Expose port for dev server
-EXPOSE 3000
+# Embed the backend URL during the Vite build process
+ENV VITE_API_URL=http://localhost:8000
+RUN npm run build
 
-CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0", "--port", "3000"]
+# Stage 2: Serve with Nginx (Non-Root)
+FROM nginxinc/nginx-unprivileged:alpine
+
+# Copy the build artifacts from the previous stage
+COPY --from=build /app/dist /usr/share/nginx/html
+
+EXPOSE 8080
+
+CMD ["nginx", "-g", "daemon off;"]
