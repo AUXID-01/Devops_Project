@@ -29,3 +29,49 @@ docker-compose up -d --build
 - `backend/requirements.txt` — Python dependencies
 - `frontend/` — React frontend source code
 - `docker-compose.yml` — Stack orchestration
+
+### Running Individually (Local Development)
+
+If you prefer to run the components individually outside of Docker for debugging or development:
+
+#### 1. Database
+You must have the database running. You can spin up just the PostgreSQL container:
+```powershell
+cd bugboard
+docker compose up -d postgres
+```
+
+#### 2. Backend (FastAPI)
+Open a terminal and run:
+```powershell
+cd bugboard/backend
+
+# Create and activate a virtual environment (Windows)
+python -m venv venv
+venv\Scripts\Activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Set local database URL (since you are connecting from the host machine)
+$env:DATABASE_URL="postgresql://bugboard_user:bugboard_pass@localhost:5432/bugboard_db"
+
+# Run migrations and start the server
+alembic upgrade head
+uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
+```
+
+#### 3. Frontend (React / Vite)
+Open a new, separate terminal and run:
+```powershell
+cd bugboard/frontend
+
+# Install dependencies
+npm install
+
+# Set local API URL (tells Vite to proxy to localhost instead of the Docker backend)
+$env:VITE_API_URL="http://localhost:8000"
+
+# Start the development server
+npm run dev
+```
