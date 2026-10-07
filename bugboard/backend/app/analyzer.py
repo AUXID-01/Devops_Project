@@ -1,6 +1,5 @@
 import os
 import zipfile
-import shutil
 from typing import Dict, Tuple
 
 def extract_and_analyze_project(zip_path: str, extract_dir: str) -> Dict[str, int]:
