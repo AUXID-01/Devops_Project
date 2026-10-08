@@ -13,9 +13,10 @@ BugBoard is an intelligent, automated bug tracking and code analysis SaaS applic
 - REST APIs
 - Pytest automated tests
 - Docker containers
-- GitHub Actions CI/CD *(Pending)*
+- GitHub Actions CI/CD
 - Trivy container security scanning *(Pending)*
-- GitHub Container Registry *(Pending)*
+- GitHub Container Registry
+- Docker Hub Registry
 - Terraform for AWS infrastructure *(Pending)*
 - AWS VPC + EKS *(Pending)*
 - Kubernetes *(Pending)*
@@ -284,4 +285,28 @@ This keeps build tooling out of the final runtime image.
 
 ---
 
-*(Sections F through O: CI/CD, Trivy, Terraform, Kubernetes, Helm, Ingress, HPA, Prometheus, and Troubleshooting are pending development).*
+# PART F — CI/CD
+
+## 11. GitHub Actions pipeline
+
+The workflow has three conceptual stages:
+
+```text
+TEST
+ ↓
+BUILD + PUSH
+ ↓
+DEPLOY (Pending)
+```
+
+### Test job (`test-backend`)
+- Runs Pytest quality gate. Aborts the pipeline if tests fail.
+
+### Build/Push job (`build-and-push-images`)
+- Builds the optimized frontend and backend images.
+- Pushes to **GitHub Container Registry (GHCR)** and **Docker Hub**.
+- Tags images immutably with the Git commit SHA.
+
+---
+
+*(Sections G through O: Trivy, Terraform, Kubernetes, Helm, Ingress, HPA, Prometheus, and Troubleshooting are pending development).*
