@@ -24,4 +24,4 @@ app.include_router(projects.router)
 app.include_router(bugs.router)
 app.include_router(analysis.router)
 
-Instrumentator().instrument(app).expose(app)
+Instrumentator().instrument(app).expose(app, endpoint="/metrics")
