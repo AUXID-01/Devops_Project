@@ -19,9 +19,9 @@ BugBoard is an intelligent, automated bug tracking and code analysis SaaS applic
 - Docker Hub Registry
 - Terraform for AWS infrastructure
 - AWS VPC + EKS *(Pending)*
-- Kubernetes *(Pending)*
-- Helm *(Pending)*
-- Ingress *(Pending)*
+- Kubernetes
+- Helm
+- Ingress
 - HPA *(Pending)*
 - Prometheus + Grafana *(Pending)*
 - Health/readiness endpoints
@@ -76,8 +76,8 @@ bugboard/
 │   └── alembic/              # DB migrations
 ├── docker-compose.yml        # Full local stack
 ├── terraform/                # AWS VPC + EKS infrastructure (To be built)
-├── helm/bugboard/            # Kubernetes package (To be built)
-├── k8s/                      # namespace/bootstrap manifests (To be built)
+├── helm/bugboard/            # Kubernetes package
+├── k8s/                      # namespace/bootstrap manifests
 ├── monitoring/               # Prometheus/Grafana values (To be built)
 ├── troubleshooting/          # deliberately broken manifests (To be built)
 └── .github/workflows/        # CI/CD (To be built)
@@ -336,4 +336,16 @@ The infrastructure is strictly modularized into `main.tf`, `vpc.tf`, `eks.tf`, `
 
 ---
 
-*(Sections I through O: Kubernetes, Helm, Ingress, HPA, Prometheus, and Troubleshooting are pending development).*
+## 14. Kubernetes & Helm (Orchestration)
+
+The application workloads are fully declarative and orchestrated via Kubernetes.
+- **Namespace (`bugboard`):** Strict boundary isolation.
+- **Deployments:** High-availability frontend and backend sets (2 replicas each).
+- **Services:** `ClusterIP` internal load balancing.
+- **Ingress:** NGINX ingress controller routing `/` to the frontend and `/api` to the backend.
+
+Everything is elegantly packaged into a Helm chart (`helm/bugboard`), separating the static Kubernetes object structures from dynamic configuration values (`values.yaml`).
+
+---
+
+*(Sections J through O: HPA, Prometheus, and Troubleshooting are pending development).*
