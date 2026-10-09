@@ -23,7 +23,7 @@ BugBoard is an intelligent, automated bug tracking and code analysis SaaS applic
 - Helm
 - Ingress
 - HPA *(Pending)*
-- Prometheus + Grafana *(Pending)*
+- Prometheus + Grafana
 - Health/readiness endpoints
 - Troubleshooting exercises *(Pending)*
 
@@ -78,7 +78,7 @@ bugboard/
 ├── terraform/                # AWS VPC + EKS infrastructure (To be built)
 ├── helm/bugboard/            # Kubernetes package
 ├── k8s/                      # namespace/bootstrap manifests
-├── monitoring/               # Prometheus/Grafana values (To be built)
+├── monitoring/               # Prometheus/Grafana values
 ├── troubleshooting/          # deliberately broken manifests (To be built)
 └── .github/workflows/        # CI/CD (To be built)
 ```
@@ -348,4 +348,13 @@ Everything is elegantly packaged into a Helm chart (`helm/bugboard`), separating
 
 ---
 
-*(Sections J through O: HPA, Prometheus, and Troubleshooting are pending development).*
+## 15. Observability (Prometheus & Grafana)
+
+The Kubernetes cluster is fully instrumented for deep operational visibility using the industry-standard kube-prometheus stack:
+- **Prometheus:** Pulls metrics from the FastAPI backend via the `/metrics` endpoint every 15 seconds.
+- **Instrumentator:** Python FastAPI application is instrumented using `prometheus-fastapi-instrumentator` to track HTTP traffic.
+- **Grafana:** Provides real-time visual dashboards measuring golden signals like Request Rates (throughput), P95 Latency, and 5xx Error Rates.
+
+---
+
+*(Sections K through O: HPA and Troubleshooting are pending development).*
