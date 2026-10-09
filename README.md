@@ -17,7 +17,7 @@ BugBoard is an intelligent, automated bug tracking and code analysis SaaS applic
 - Trivy container security scanning
 - GitHub Container Registry
 - Docker Hub Registry
-- Terraform for AWS infrastructure *(Pending)*
+- Terraform for AWS infrastructure
 - AWS VPC + EKS *(Pending)*
 - Kubernetes *(Pending)*
 - Helm *(Pending)*
@@ -322,4 +322,18 @@ Trivy has been integrated directly into the CI/CD pipeline as an active security
 
 ---
 
-*(Sections H through O: Terraform, Kubernetes, Helm, Ingress, HPA, Prometheus, and Troubleshooting are pending development).*
+# PART H — CLOUD DEPLOYMENT
+
+## 13. AWS Infrastructure as Code (Terraform)
+
+The foundational AWS cloud infrastructure has been defined using HashiCorp Terraform:
+- **VPC:** Custom VPC with DNS hostnames and support enabled.
+- **Subnets:** Public subnets for ingress controllers, Private subnets for managed workloads.
+- **Gateways:** Internet Gateway and NAT Gateway for private egress.
+- **EKS:** Managed Kubernetes cluster (Control Plane + Node Group).
+
+The infrastructure is strictly modularized into `main.tf`, `vpc.tf`, `eks.tf`, `variables.tf`, and `outputs.tf` following best practices.
+
+---
+
+*(Sections I through O: Kubernetes, Helm, Ingress, HPA, Prometheus, and Troubleshooting are pending development).*
