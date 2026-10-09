@@ -6,8 +6,6 @@ venv/
 .env
 .pytest_cache/
 tests/
-alembic.ini
-alembic/
-!alembic/versions/
+
 uploads/
 Dockerfile
