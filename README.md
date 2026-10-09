@@ -14,7 +14,7 @@ BugBoard is an intelligent, automated bug tracking and code analysis SaaS applic
 - Pytest automated tests
 - Docker containers
 - GitHub Actions CI/CD
-- Trivy container security scanning *(Pending)*
+- Trivy container security scanning
 - GitHub Container Registry
 - Docker Hub Registry
 - Terraform for AWS infrastructure *(Pending)*
@@ -309,4 +309,17 @@ DEPLOY (Pending)
 
 ---
 
-*(Sections G through O: Trivy, Terraform, Kubernetes, Helm, Ingress, HPA, Prometheus, and Troubleshooting are pending development).*
+---
+
+# PART G — DEVSECOPS
+
+## 12. Trivy Security Scanning
+
+Trivy has been integrated directly into the CI/CD pipeline as an active security gate. 
+- It scans the backend (`debian`) and frontend (`alpine`) images for vulnerabilities.
+- It fails the pipeline (`exit-code: 1`) if any `HIGH` or `CRITICAL` vulnerabilities are detected.
+- We utilize active patching and a `.trivyignore` risk-acceptance register to manage false positives and unpatchable OS-level CVEs.
+
+---
+
+*(Sections H through O: Terraform, Kubernetes, Helm, Ingress, HPA, Prometheus, and Troubleshooting are pending development).*
